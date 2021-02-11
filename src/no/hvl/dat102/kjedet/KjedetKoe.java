@@ -26,7 +26,14 @@ public class KjedetKoe<T> implements KoeADT<T> {
 	public void innKoe(T element) {
 		LinearNode<T> nyNode = new LinearNode<T>(element);
 
-		//TODO
+		if(foran.equals(null)) {
+			foran = nyNode;
+		}else {
+			bak.setNeste(nyNode);
+		}
+		
+		bak = nyNode;
+		antall++;
 	}
 
 	/******************************************************************
@@ -35,10 +42,16 @@ public class KjedetKoe<T> implements KoeADT<T> {
 	public T utKoe() {
 		if (erTom())
 			throw new EmptyCollectionException("koe");
-
-		//TODO
-		return null;
 		
+		LinearNode<T> utNode = foran;
+		foran = foran.getNeste();
+		antall--;
+		
+		if(erTom()) {
+			bak = null;
+		}
+		
+		return (T) utNode;
 	}
 
 	/******************************************************************
@@ -47,10 +60,8 @@ public class KjedetKoe<T> implements KoeADT<T> {
 	public T foerste() {
 		if (erTom())
 			throw new EmptyCollectionException("koe");
-
-		//TODO
-		return null;
 		
+		return (T) foran;
 	}
 
 	/******************************************************************
